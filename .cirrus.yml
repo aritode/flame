@@ -2,7 +2,7 @@ bundle_cache: &bundle_cache
   bundle_cache:
     folder: /usr/local/bundle
     fingerprint_script:
-      - echo $CIRRUS_TASK_NAME:$CIRRUS_OS
+      - echo $CIRRUS_OS
       - ruby -v
       - cat Gemfile
       - cat *.gemspec
@@ -10,6 +10,8 @@ bundle_cache: &bundle_cache
 
 
 test_task:
+  depends_on:
+    - rubocop
   container:
     matrix:
       image: ruby:2.4
